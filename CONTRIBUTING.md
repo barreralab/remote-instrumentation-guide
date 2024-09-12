@@ -66,7 +66,3 @@ If you encounter any bugs or issues, feel free to create an issue on GitHub and 
 ## Code of Conduct
 
 Please adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming environment for everyone.
-
----
-
-Let me know if you need any further changes!

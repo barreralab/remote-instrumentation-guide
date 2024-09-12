@@ -26,6 +26,7 @@ theme:
     - content.code.copy
     - navigation.sections
     - navigation.footer
+    - content.tooltips
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -44,6 +45,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.critic
   - pymdownx.caret
   - pymdownx.keys

@@ -10,6 +10,7 @@ There are several implementations of VISA. National Instruments VISA (NI-VISA) i
 <figure markdown="span">
   ![ni-visa-layer-diagram](img/ni-visa-layers.png){ loading=lazy }
   <figcaption>Control Layers for the NI-VISA system
+  <!-- work around to get footnote to render properly -->
   <sup id="fnref:1">
     <a class="footnote-ref" href="#fn:1">1</a>
   </sup>
@@ -41,11 +42,12 @@ The $*$ indicates that the specified string can be repeated indefinitely and str
 pyvisa can serve as both a high-level wrapper for an existing VISA installation and an implementation of VISA itself. In the first case, pyvisa calls functions in a VISA backend to manage instrument communication, whereas, in the latter, the bus protocols are directly managed in python through other libraries. 
 
 **Examples** 
-1. [PHY405 initialization script](/QCoDeS/src/pyVisa_testing/PHY405_Test_USB_Control.py) Initalization of multiple instruments 
-3. [yoko+kiethley_sweep](/QCoDeS/src/pyVisa_testing/sweep.py) Linear voltage sweep with YokogawaGS820 channel as source and KeithleyDMM6500 as measurement probe
 
-    **Requires**
-    1. [Custom Keithley and Yoko Class](/QCoDeS//src/pyVisa_testing/instruments.py): Abstracts away SCPI command details. 
+1. [PHY405 initialization script](/QCoDeS/src/pyVisa_testing/PHY405_Test_USB_Control.py) Initalization of multiple instruments 
+2. [yoko+kiethley_sweep](/src/pyvisa_examples/sweep.py) Linear voltage sweep with YokogawaGS820 channel as source and KeithleyDMM6500 as measurement probe
+
+    <!-- **Requires**
+    1. [Custom Keithley and Yoko Class](/QCoDeS//src/pyVisa_testing/instruments.py): Abstracts away SCPI command details.  -->
 
 
 For simple configurations, pyvisa is immensely convenient, and moreover, serves as foundation for qcodes. Take time to understand how it works. 
@@ -70,12 +72,22 @@ Largely just plug and play, no additional NI driver needed.
 ### Ethernet 
 When statically configuring your device's ethernet settings, take the following steps 
 
-1. **Disable DHCP** (dynamic host configuration protocol). Most of the time, you won't be able to tinker any ethernet settings unless this is disabled. 
-2. **Determine ip address and subnet mask of PC ethernet adaptor**. Perform `ipconfig -all` on windows (or the equivalent variant on linux/maxos) and find the ip address and subnet mask associated with your ethernet adapter. If you have multiple ethernet ports on your pc, make sure you find the right one. 
+1. **Disable [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol "Dynamic Host Configuration Protocol")**: Most of the time, you won't be able to tinker any ethernet settings unless this is disabled. 
+2. **Determine IP address and subnet mask of PC ethernet adaptor**: Open a command prompt and perform 
+
+    === "Windows"
+        ```bash
+        ipconfig /all
+        ```
+    === "Linux/Mac"
+        ```bash
+        ifconfig # on mac can view system ethernet settings
+        ```
+    Find the IP address and subnet mask associated with your ethernet adapter. If you have multiple ethernet ports on your pc, make sure you find the right one. 
 
     <figure markdown="span">
     ![ipconfig_output](img/ipconfig_output.png){ width="600", loading=lazy }
-    <figcaption>Example ipconfig output</figcaption>
+    <figcaption>Example `ipconfig /all` output on windows machine</figcaption>
     </figure> 
     The subnet mask is a 32 bit number expressed as a period separated group of 4 bytes represented in decimal. Thus, each group is represented by a number from 0 to $255 = 2^8 - 1$. Hence, in the above example, our subnet mask in binary is `{1^16}{0^16}`, by which we mean 16 1s followed by 16 0s. 
 
@@ -83,19 +95,18 @@ When statically configuring your device's ethernet settings, take the following 
 
 3. **Configure Instrument Settings** Set your instruments subnet mask to match the pc's and then choose an ip address (not equal to the pc's) which matches the pc's wherever the subnet mask has a bit 1. In the above example, we are free to set the device's ip address to anything of the form `169.254.xxx.xxx` since the subnet is 1 in the first 16 bits and 0 in the last as explained before. 
 
-4. **Test Ethernet Connection** Open a terminal/command prompt on your pc and ping the device. If we set a device to ip address `169.254.169.1`, then `ping 169.254.169.1` will output something like
+4. **Test Ethernet Connection** Open a terminal/command prompt on your pc and ping the device. If we set a device to ip address `169.254.169.1`, then execute `ping 169.254.169.1`
     <figure markdown="span">
     ![ping_output](img/ping_output.png){ width="500", loading=lazy }
     <figcaption>Example ping output</figcaption>
     </figure>
 
-1. **Test Visa Connection** Open NI MAX (should come with your visa installation).
-
+5. **Test Visa Connection** Open NI MAX (should come with your visa installation).
     ```
         Devices and Interfaces > Create New > VISA TCP/IP Resource > Auto-detect of LAN Instrument
     ```
     <figure markdown="span">
-      ![ni_max_auto_detect](img/ni_max_auto_detect.png){ width="500", loading=lazy }
+      ![ni_max_auto_detect](img/ni_max_auto_detect.png){ width="600", loading=lazy }
         <figcaption>NI-MAX autodetect LAN</figcaption>
     </figure>    
     You should be able to find your device ip addresses here. Copy the VISA address displayed corresponding to your instrument and use your choice of pyvisa, qcodes, or even NI MAX itself to test that your device can send/receive data over ethenet.
