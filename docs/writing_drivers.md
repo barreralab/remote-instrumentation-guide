@@ -6,7 +6,7 @@ Creating drivers amounts to defining a subclass of some base Instrument class an
 
 The general template goes as 
 
-```python
+```python title="Instrument Driver template"
 from qcodes.instrument import VisaInstrument
 
 # log messages outside of instrument 
@@ -72,9 +72,11 @@ You'll see these methods used often in the drivers you'll encounter. It may even
 If you want to include a parameter that is only settable/gettable, assign the set_cmd/get_cmd to False, not None. None corresponds to a manual parameter. 
 
 Note that when you inherit from the VisaInstrument class, you'll see that the class heirarchy goes as  
-```math
+
+\[
 \underbrace{\textrm{VisaInstrument}}_{\textrm{Sets up VISA  connection}} \longrightarrow \overbrace{\textrm{Instrument}}^{\textrm{adds IDN param and some methods}} \longrightarrow \underbrace{\textrm{InstrumentBase}}_{\textrm{defines add\_parameter, etc}}
-```
+\]
+
 where $a \to b$ signifies that $a$ is a child of $b$. 
 **Exercises**
 It's instructive to peek through the curtains of the qcodes api and see how these lines of codes actually control the instrument. Try out the following exercises. 
@@ -109,9 +111,9 @@ When inheriting from the VisaInstrument class,
 **Remarks/Cautions**
 1. If you don't override the `get_idn()` method, then you have to ensure that your instrument supports the `*IDN?` SCPI query, and moreover, returns a string formatted as 
 
-```math
+\[
 \textrm{\{vendor\}[s]\{model\}[s]\{serial\}[s]\{firmware\}}
-```
+\]
 
 where $[s]$ denotes a separator which is either a comma, colon, or semicolon. Comma is more standard. 
 

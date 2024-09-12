@@ -1,0 +1,49 @@
+site_name: Remote Instrumentation Guide
+
+nav:
+  - Home: index.md
+  - Intro: intro.md
+  - 15.5 mins to qcodes: 15.5_mins_to_qcodes.md
+  - Measurements: measurements.md
+  - Databases: database.md
+  - Yaml Config: yaml_config.md
+  - Writing Drivers: writing_drivers.md
+  - Logging: logging.md
+  - Virtual Parameters: virtual_parameters.md
+  - Issues: issues.md
+
+theme: 
+  name: material
+  features:
+    - content.code.copy
+
+
+features:
+  - navigation.sections
+  - navigation.path
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - footnotes
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra_css:
+  - stylesheets/extra.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
