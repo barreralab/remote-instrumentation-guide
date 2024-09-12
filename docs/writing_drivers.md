@@ -1,13 +1,16 @@
 # Writing Drivers 
-Creating drivers amounts to defining a subclass of some base Instrument class and writing out the declarations for the parameters you want to include. It is ***highly recommmended*** that you inherit from the VisaInstrument base class as it allows you to create a simulated instrument for your driver to test trivial functionality.  
-
-**NOTE** The following template requires that you have qcodes 0.46.0 and up. With previous versions, `self.add_parameter()` did not return anything, leading to [Issues 4](#issues) whereas now it returns the created parameter, allowing it to be assigned to an attribute. 
+Creating drivers amounts to defining a subclass of some base Instrument class and writing out the declarations for the parameters you want to include. It is recommended that you inherit from the VisaInstrument base class as it allows you to create a simulated instrument for your driver to test trivial functionality.  
 
 
-The general template goes as 
+## Template
+!!!info 
+    The following template requires that you have qcodes 0.46.0 and up. With previous versions, `self.add_parameter()` did not return anything, leading to [Issues](../issues##no-output-parameter){ data-preview }
 
-```python
+```python title="Instrument Driver template"
 from qcodes.instrument import VisaInstrument
+
+# If you are using method 2 for adding parameters
+from qcodes.Parameter import Parameter
 
 # log messages outside of instrument 
 log = logging.getLogger(__name__)
@@ -72,9 +75,11 @@ You'll see these methods used often in the drivers you'll encounter. It may even
 If you want to include a parameter that is only settable/gettable, assign the set_cmd/get_cmd to False, not None. None corresponds to a manual parameter. 
 
 Note that when you inherit from the VisaInstrument class, you'll see that the class heirarchy goes as  
-```math
+
+\[
 \underbrace{\textrm{VisaInstrument}}_{\textrm{Sets up VISA  connection}} \longrightarrow \overbrace{\textrm{Instrument}}^{\textrm{adds IDN param and some methods}} \longrightarrow \underbrace{\textrm{InstrumentBase}}_{\textrm{defines add\_parameter, etc}}
-```
+\]
+
 where $a \to b$ signifies that $a$ is a child of $b$. 
 **Exercises**
 It's instructive to peek through the curtains of the qcodes api and see how these lines of codes actually control the instrument. Try out the following exercises. 
@@ -106,16 +111,17 @@ When inheriting from the VisaInstrument class,
 3. [AC Box Driver](/QCoDeS/src/LabDrivers/AC_DAC.py): Driver for Barrera Lab's custom built AC-DAC AD9106 Waveform generator **TODO** Update link when file name changes
 4. [DC Box Driver](/QCoDeS/src/LabDrivers/Barrera_DCDAC_57604.py): Driver for Barrera Lab's custom built DC-DAC AD5764 DC generator 
 
-**Remarks/Cautions**
-1. If you don't override the `get_idn()` method, then you have to ensure that your instrument supports the `*IDN?` SCPI query, and moreover, returns a string formatted as 
+!!! warning
+    If you don't override the `get_idn()` method, then you have to ensure that your instrument supports the `*IDN?` SCPI query, and moreover, returns a string formatted as 
 
-```math
-\textrm{\{vendor\}[s]\{model\}[s]\{serial\}[s]\{firmware\}}
-```
+    \[
+    \textrm{\{vendor\}[s]\{model\}[s]\{serial\}[s]\{firmware\}}
+    \]
 
-where $[s]$ denotes a separator which is either a comma, colon, or semicolon. Comma is more standard. 
+    where $[s]$ denotes a separator which is either a comma, colon, or semicolon. Comma is more standard. 
 
-**Important** For Arduino controlled devices operating over the Serial bus, it should be noted that Ardunos reset themselves when opening a serial connection (a byproduct of making firmware programming accessible). The current fix is to sleep for 3 seconds in the init method of the driver before `self.connect_message()` is called. 
+!!! info 
+    For Arduino controlled devices operating over the Serial bus, it should be noted that Ardunos reset themselves when opening a serial connection (a byproduct of making firmware programming accessible). The current fix is to sleep for 3 seconds in the init method of the driver before `self.connect_message()` is called. 
 
 ## Testing your Driver 
 If you want to make a contribution to the qcodes community driver library, you'll have to implement some of their testing protocols. 

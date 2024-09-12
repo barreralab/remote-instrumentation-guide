@@ -1,0 +1,79 @@
+site_name: Remote Instrumentation Guide
+
+repo_url: https://github.com/barreralab/remote-instrumentation-guide
+repo_name: barreralab/remote-instrumentation-guide
+
+nav:
+  - Home: index.md
+  - Intro: intro.md
+  - 15.5 mins to qcodes: 15.5_mins_to_qcodes.md
+  - Measurements: measurements.md
+  - Databases: database.md
+  - Yaml Config: yaml_config.md
+  - Writing Drivers: writing_drivers.md
+  - Logging: logging.md
+  - Virtual Parameters: virtual_parameters.md
+  - Issues: issues.md
+
+theme:
+  name: material
+  icon:
+    logo: material/home
+  palette:
+    scheme: default
+  features:
+    - navigation.path
+    - content.code.copy
+    - navigation.sections
+    - navigation.footer
+    - content.tooltips
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  # - material.extensions.preview:
+  #   sources:
+  #     include:
+  #       - writing_drivers.md
+  #   targets:
+  #     include:
+  #       - issues.md
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - footnotes
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra_css:
+  - stylesheets/extra.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/barreralab/remote-instrumentation-guide
+      name: Github Source Code

@@ -17,7 +17,9 @@ QCoDeS provide highly optimized data handling for such measurements.
 
 Calling the `doNd()` returns a tuple of objects. The first of which can be plotted via the plot function from `qcodes.utils.dataset.doNd`. 
 If you are in an IPython environment, you can configure the doNd for auto plotting. Outside, the best choice is plottr.
-**Note** plottr doesn't have integrated support for general $n$ dimensional plotting. See this [resource](https://en.wikipedia.org/wiki/Interstellar_(film)) for more info 
+
+!!! note
+    plottr doesn't have integrated support for general $n$ dimensional plotting. See this [resource](https://en.wikipedia.org/wiki/Interstellar_(film)) for more info 
 
 **Examples**
 1. [qc_doNd_together_sweep.py](/QCoDeS/src/qcodes_testing/qc_dond_together_sweep.py) Both output channels of YokogawaGS820 linearly sweep over voltage while Keithley2400 and Keithley6500 take measurements. Plotted data shows recorded voltages over the linearly sweeped parameter space resulting in heatmap over diagonal with x and y axes being yoko voltages. Compare with [qc_sweep.py](/QCoDeS/src/qcodes_testing/qc_sweep.py) to appreciate the power of doNd. The Keithly2400 driver is provided by qcodes core driver library, but the script
