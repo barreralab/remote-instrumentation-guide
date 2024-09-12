@@ -7,7 +7,14 @@ In the (19)90s, to combat this problem, several instrument manufacturing powerho
 
 There are several implementations of VISA. National Instruments VISA (NI-VISA) is the most common and well-supported, but there may be instances where another implementation is required. The image below, taken from [^1] outlines the software heirarchy of an instrument control scheme from the bus drivers to the high-level application. Note where NI-VISA sits.   
 
-![ni-visa-layers](img/ni-visa-layers.png)
+<figure markdown="span">
+  ![ni-visa-layer-diagram](img/ni-visa-layers.png){ loading=lazy }
+  <figcaption>Control Layers for the NI-VISA system
+  <sup id="fnref:1">
+    <a class="footnote-ref" href="#fn:1">1</a>
+  </sup>
+  </figcaption>
+</figure>
 
  
 Importantly, on top of the NI-VISA download, you'll also need the NI-Drivers for certain buses like GPIB, RS and VXI. For USB connections, NI-VISA has in-built support. 
@@ -20,7 +27,15 @@ The Standard Communications Protocol for Instruments (SCPI, pronounced 'skippy' 
 
 The $*$ indicates that the specified string can be repeated indefinitely and strings within square brackets [] are optional. Commands are scoped by colons $:$ which are followed by a comma separated string of parameters which may or may not be required depending on the command. Multiple SCPI command blocks are separated by semicolons. Commands are either queries (indicated by the question mark) or sets. See the figure below for a sample of the YokogawaGS820 command tree 
 
-![YokogawaGS820 command tree excerpt](img/gs820_scpi.png)
+<figure markdown="span">
+  ![YokogawaGS820 command tree excerpt](img/gs820_scpi.png){ loading=lazy }
+  <figcaption>Sample from YokogawaGS820 Command Tree
+  <!-- work around to get footnote to render properly -->
+  <sup id="fnref:2">
+    <a class="footnote-ref" href="#fn:2">2</a>
+  </sup>
+  </figcaption>
+</figure>
 
 ## pyvisa
 pyvisa can serve as both a high-level wrapper for an existing VISA installation and an implementation of VISA itself. In the first case, pyvisa calls functions in a VISA backend to manage instrument communication, whereas, in the latter, the bus protocols are directly managed in python through other libraries. 
@@ -57,24 +72,33 @@ When statically configuring your device's ethernet settings, take the following 
 
 1. **Disable DHCP** (dynamic host configuration protocol). Most of the time, you won't be able to tinker any ethernet settings unless this is disabled. 
 2. **Determine ip address and subnet mask of PC ethernet adaptor**. Perform `ipconfig -all` on windows (or the equivalent variant on linux/maxos) and find the ip address and subnet mask associated with your ethernet adapter. If you have multiple ethernet ports on your pc, make sure you find the right one. 
-        ![image](img/ipconfig_output.png)
 
-    The subnet mask is a 32 bit number expressed as a period separated group of bytes represented in decimal. Thus, each group is represented by a number from 0 to $255 = 2^8 - 1$. Hence, in the above example, our subnet mask in binary is `{1^16}{0^16}`, by which we mean 16 1s followed by 16 0s. 
+    <figure markdown="span">
+    ![ipconfig_output](img/ipconfig_output.png){ width="600", loading=lazy }
+    <figcaption>Example ipconfig output</figcaption>
+    </figure> 
+    The subnet mask is a 32 bit number expressed as a period separated group of 4 bytes represented in decimal. Thus, each group is represented by a number from 0 to $255 = 2^8 - 1$. Hence, in the above example, our subnet mask in binary is `{1^16}{0^16}`, by which we mean 16 1s followed by 16 0s. 
 
-    The ethernet protocol will perform a bitwise-and operation on the subnet mask and the destination ip address to help determine where to route packets. 
+    The ethernet protocol will perform a bitwise-and operation on the subnet mask and the destination ip address to help determine where to route packets.
 
-3. Set your instruments subnet mask to match the pc's and then choose an ip address (not equal to the pc's) which matches the pc's wherever the subnet mask has a bit 1. In the above example, we are free to set the device's ip address to anything of the form `169.254.xxx.xxx` since the subnet is 1 in the first 16 bits and 0 in the last as explained before. 
+3. **Configure Instrument Settings** Set your instruments subnet mask to match the pc's and then choose an ip address (not equal to the pc's) which matches the pc's wherever the subnet mask has a bit 1. In the above example, we are free to set the device's ip address to anything of the form `169.254.xxx.xxx` since the subnet is 1 in the first 16 bits and 0 in the last as explained before. 
 
 4. **Test Ethernet Connection** Open a terminal/command prompt on your pc and ping the device. If we set a device to ip address `169.254.169.1`, then `ping 169.254.169.1` will output something like
-![ping_output](imgs/ping_output.png) 
+    <figure markdown="span">
+    ![ping_output](img/ping_output.png){ width="500", loading=lazy }
+    <figcaption>Example ping output</figcaption>
+    </figure>
 
-5. **Test Visa Connection** Open NI MAX (should come with your visa installation). 
-    ```math Devices and Interfaces > Create New > VISA TCP/IP Resource > Auto-detect of LAN Instrument``` 
-    You should be able to find your device ip addresses here 
-    ![ni_max_auto_detect](imgs/ni_max_auto_detect.png)
-    
-    Copy the VISA address displayed corresponding to your instrument and use your choice of pyvisa, qcodes, or even NI MAX itself to test that your device can send/receive data over ethenet.
+1. **Test Visa Connection** Open NI MAX (should come with your visa installation).
 
+    ```
+        Devices and Interfaces > Create New > VISA TCP/IP Resource > Auto-detect of LAN Instrument
+    ```
+    <figure markdown="span">
+      ![ni_max_auto_detect](img/ni_max_auto_detect.png){ width="500", loading=lazy }
+        <figcaption>NI-MAX autodetect LAN</figcaption>
+    </figure>    
+    You should be able to find your device ip addresses here. Copy the VISA address displayed corresponding to your instrument and use your choice of pyvisa, qcodes, or even NI MAX itself to test that your device can send/receive data over ethenet.
     *Remark* in pyvisa, remember to set your write and read termination characters. 
 
 
@@ -93,3 +117,4 @@ If you installed pyvisa previously, then you should have a working VISA installa
 
 
 [^1]: hello 
+[^2]: [YokogawaGS820 Documentation](https://tmi.yokogawa.com/ca/solutions/products/generators-sources/source-measure-units/gs820-multi-channel-source-measure-unit/#Documents-Downloads____downloads_4)

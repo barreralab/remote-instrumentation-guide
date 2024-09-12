@@ -15,7 +15,7 @@ Related to above issue. How to ensure synchronization of commands? Develop some 
 ## IPython Compatibility
 QCoDeS designed to run in ipython environments (jupyter notebooks). Interactive widgets, in line plotting, and logging are only available in ipython. 
 
-## Driver attributes/methods not recognized by intellisense
+## No output Parameter
 The QCoDeS documentation recommends assigning parameters defined via `self.add_parameter(...)` to similarly named attributes for compatibility with code editor's auto-completion systems. The problem is 2-fold 
     1. If assigned as `self.param = self.add_parameter(...)`, then for some reason, qcodes throws an error when you try to set/get self.param as you would a regular parameter. i.e, if in some driver method, you want to set param, `self.param(x)` throws an error. In fact, digging into the source code for the InstrumentBase class reveals that the `add_parameter()` method returns Nonetype! If no assignment is made to a class attribute, then this problem disappears. 
     2. To resolve the above issue, I directly instantiated parameters from the Parameter class and assigned to a class attribute as recommended. `self.param = Parameter(self.inst, ...)` (note that a reference to the instrument itself has to be passed here). This enabled the usual syntax for setting/getting the param, but vscode still didn't recognize any of the attributes/methods of the driver class. This was observed in the [YokogawaGS820](/QCoDeS/src/LabDrivers/Yokogawa_GS820.py) driver, which is likely a consequence of relegating parameter constructions to the InstrumentChannel class. 

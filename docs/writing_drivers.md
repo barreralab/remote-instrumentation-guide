@@ -1,7 +1,7 @@
 # Writing Drivers 
 Creating drivers amounts to defining a subclass of some base Instrument class and writing out the declarations for the parameters you want to include. It is ***highly recommmended*** that you inherit from the VisaInstrument base class as it allows you to create a simulated instrument for your driver to test trivial functionality.  
 
-**NOTE** The following template requires that you have qcodes 0.46.0 and up. With previous versions, `self.add_parameter()` did not return anything, leading to [Issues 4](#issues) whereas now it returns the created parameter, allowing it to be assigned to an attribute. 
+**NOTE** The following template requires that you have qcodes 0.46.0 and up. With previous versions, `self.add_parameter()` did not return anything, leading to [Issues](../issues##no-output-parameter){ data-preview } whereas now it returns the created parameter, allowing it to be assigned to an attribute. 
 
 
 The general template goes as 

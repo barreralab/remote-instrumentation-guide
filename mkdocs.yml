@@ -1,5 +1,8 @@
 site_name: Remote Instrumentation Guide
 
+repo_url: https://github.com/barreralab/remote-instrumentation-guide
+repo_name: barreralab/remote-instrumentation-guide
+
 nav:
   - Home: index.md
   - Intro: intro.md
@@ -12,15 +15,17 @@ nav:
   - Virtual Parameters: virtual_parameters.md
   - Issues: issues.md
 
-theme: 
+theme:
   name: material
+  icon:
+    logo: material/home
+  palette:
+    scheme: default
   features:
+    - navigation.path
     - content.code.copy
-
-
-features:
-  - navigation.sections
-  - navigation.path
+    - navigation.sections
+    - navigation.footer
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -29,6 +34,13 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
+  # - material.extensions.preview:
+  #   sources:
+  #     include:
+  #       - writing_drivers.md
+  #   targets:
+  #     include:
+  #       - issues.md
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
@@ -37,7 +49,16 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.tilde
+  - attr_list
+  - md_in_html
   - footnotes
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
 
 extra_javascript:
   - javascripts/katex.js
@@ -47,3 +68,9 @@ extra_javascript:
 extra_css:
   - stylesheets/extra.css
   - https://unpkg.com/katex@0/dist/katex.min.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/barreralab/remote-instrumentation-guide
+      name: Github Source Code
