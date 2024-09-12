@@ -14,7 +14,7 @@ Thank you for considering contributing to this project! Your help is greatly app
    - Follow the existing documentation structure.
    - Ensure all example scripts are stored in the `src/` folder.
    - Ensure that all code examples and documentation are up to date with the latest version of QCoDeS.
-   - If you’re adding new documentation pages, ensure they are linked in the `mkdocs.yml` file for easy navigation.
+   - If you’re adding new documentation pages, ensure they are linked in the nav property of the `mkdocs.yml` file for easy navigation.
 
 4. **Submit a Pull Request:**  
    When your changes are ready, submit a pull request with a clear description of what you’ve added or changed.
@@ -45,6 +45,8 @@ Thank you for considering contributing to this project! Your help is greatly app
    ```bash
    pip install -r requirements.txt
    ```
+
+   Note that these are only the dependencies required to update the docs. To run the example scripts, you will need to install further dependences as discussed in the guide.
 
 5. Serve the documentation locally:
 
