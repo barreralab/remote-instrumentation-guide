@@ -131,6 +131,6 @@ Another layer of abstraction higher than pyvisa with many more features. Aims to
 Follow the [Getting Started](http://microsoft.github.io/Qcodes/start/index.html) section of the qcodes docs. Use the recommended approach with miniconda, but make sure to use the latest version of python you installed when setting up the conda environment. The latest qcodes version requires python 3.11 and up as opposed to 3.9 as currently specified in the docs. If nothing else, run `pip install qcodes` (like I did). The issue here is that as qcodes develops, there may be some compatibility problems in the future.  
 
 
-[^1]: hello 
+[^1]: greetings 
 [^2]: [YokogawaGS820 Documentation](https://tmi.yokogawa.com/ca/solutions/products/generators-sources/source-measure-units/gs820-multi-channel-source-measure-unit/#Documents-Downloads____downloads_4)
 [^3]:  Many instruments have support for several command protocols so you may have to configure your instrument for SCPI. We discuss SCPI here since it's so ubiquitous, but you can use the command scheme of your choice.
