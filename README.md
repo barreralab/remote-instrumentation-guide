@@ -1,2 +1,2 @@
 # remote-instrumentation-guide
-An interactive walk through of various aspects of remote instrumentation with python from the ground up. The guide is currently manually deployed [here](https://remote-instrumentation-guide.netlify.app) via netlify. Hope to add continuous integration some time. 
+An interactive walk through of various aspects of remote instrumentation with python from the ground up. Under construction at [https://barreralab.github.io/remote-instrumentation-guide/](https://barreralab.github.io/remote-instrumentation-guide/). 
